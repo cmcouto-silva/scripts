@@ -98,6 +98,8 @@ plink_filter_path <- paste0(dataset_id_path, 'plink_filter/')
 plink_split_path <- paste0(dataset_id_path, 'plink_split/')
 shapeit_check_path <- paste0(dataset_id_path, 'shapeit_check/')
 
+if (grepl("/", dataset_id)) dataset_id <- gsub(".*/(.+)", "\\1", dataset_id)
+
 # Plink filter
 plink_v <- gsub(".*v(\\S..).*", "\\1", system("plink --version", T))
 plink <- ifelse(plink_v >= 1.9, "plink", "plink --noweb")
