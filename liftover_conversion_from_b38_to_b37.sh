@@ -47,12 +47,14 @@ awk '{print $4, $2}' OFS="\t" ${bed_b37} > ${mappingUpdate}
 plink \
 --bfile ${input} \
 --make-bed \
---out ${output_unSorted} \
 --exclude ${unmapped_b37_2} \
 --update-map ${mappingUpdate} \
+--keep-allele-order \
+--allow-no-sex \
+--out ${output_unSorted}
 
 #No we have to again create a plink file to make sure the implied order is correct after liftover.
-plink --noweb --bfile ${output_unSorted} --out ${output} --make-bed
+plink --bfile ${output_unSorted} --keep-allele-order --allow-no-sex --make-bed --out ${output}
 
 rm ${bed_b38}
 rm ${bed_b37}
@@ -62,4 +64,5 @@ rm ${mappingUpdate}
 rm "${output_unSorted}.bed"
 rm "${output_unSorted}.bim"
 rm "${output_unSorted}.fam"
+rm "${output_unSorted}.nosex"
 rm "${output_unSorted}.log"
