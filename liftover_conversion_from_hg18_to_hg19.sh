@@ -52,7 +52,7 @@ plink \
 --update-map ${mappingUpdate} \
 
 #No we have to again create a plink file to make sure the implied order is correct after liftover.
-plink --noweb --bfile ${output_unSorted} --out ${output} --make-bed
+plink --bfile ${output_unSorted} --out ${output} --make-bed
 
 rm ${bed_b36}
 rm ${bed_b37}
