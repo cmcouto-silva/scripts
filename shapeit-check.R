@@ -109,7 +109,7 @@ system(paste(plink, paste0("--bfile ",raw_dataset_path),"--make-bed",
              if(exists("plink_maf")){paste("--maf", plink_maf)},
              if(exists("plink_mind")){paste("--mind", plink_mind)},
              if(exists("plink_geno")){paste("--geno", plink_geno)},
-             "--out ", paste0(plink_filter_path, dataset_id)))
+             "--allow-no-sex --out ", paste0(plink_filter_path, dataset_id)))
 
 # Splitting chromosomes using Plink
 message(paste0("\n", "## Splitting chromosomes\n"))
@@ -117,7 +117,7 @@ split_raw_dataset_path <- paste0(plink_filter_path, dataset_id)
 split_output <- paste0(plink_split_path, dataset_id, '_chr')
 
 for (i in chrs) {
-  system(paste0(plink, " --bfile ", split_raw_dataset_path, " --chr ", i, " --make-bed --out ", split_output,i ))
+  system(paste0(plink, " --bfile ", split_raw_dataset_path, " --chr ", i, " --allow-no-sex --make-bed --out ", split_output,i ))
 }
 
 # Running Shapeit in checking mode
@@ -125,7 +125,7 @@ for (i in chrs) {
 # Writting shell command for Shapeit as character vector
 shapeit_check <- paste0("for i in $(echo ", paste(chrs, collapse = " "), "); do shapeit -check \\
                           -B ", split_output,"$i \\
-                          -M ",ref_path,"/genetic_map_chr$i\\_combined_b37.txt \\
+                          -M ", ref_path,"/genetic_map_chr$i\\_combined_b37.txt \\
                           --output-log ", shapeit_check_path, dataset_id, '_chr',"$i; done")
 
 # Running Shapeit first check within terminal
