@@ -73,4 +73,3 @@ rm "${output_unSorted}.bim"
 rm "${output_unSorted}.fam"
 rm "${output_unSorted}.nosex"
 rm "${output_unSorted}.log"
-liftover_conversion_from_b38_to_b37.sh
